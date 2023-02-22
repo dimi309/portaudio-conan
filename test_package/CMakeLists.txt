@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.1.0)
-project(test_package)
+project(PackageTest)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
+find_package(portaudio CONFIG REQUIRED)
 
-add_executable(${PROJECT_NAME} test_package.c)
-target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})
+add_executable(example test_package.c)
+target_link_libraries(example portaudio::portaudio)
