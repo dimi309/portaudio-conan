@@ -29,9 +29,9 @@ class PortaudioConan(ConanFile):
 
     exports = ["CMakeLists.txt"]
 
-    def validate(self):
-        if self.settings.compiler == "apple-clang" and tools.Version(self.settings.compiler.version) < "11":
-            raise ConanInvalidConfiguration("This recipe does not support Apple-Clang versions < 11")
+    #def validate(self):
+    #    if self.settings.compiler == "apple-clang" and self.settings.compiler.version < 11:
+    #        raise ConanInvalidConfiguration("This recipe does not support Apple-Clang versions < 11")
 
     def configure(self):
         del self.settings.compiler.cppstd
