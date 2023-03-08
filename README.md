@@ -1,4 +1,4 @@
-Portaudio [conan](https://conan.io) package
+Portaudio [conan](https://conan.io) (v2.0) package
 
 Initially copied from https://github.com/bincrafters/community
 
