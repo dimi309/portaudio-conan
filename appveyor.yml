@@ -22,7 +22,7 @@ for:
   - conan profile detect
 
   test_script:
-  - conan create . --version=19.7.0 --build=missing -c tools.system.package_manager:mode=install
+  - conan create . --version=19.7.0 --build=missing -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True
 
 -
   matrix:
