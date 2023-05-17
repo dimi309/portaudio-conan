@@ -63,10 +63,7 @@ class PortaudioConan(ConanFile):
         tc.variables["PA_BUILD_STATIC"] = not self.options.shared
         tc.variables["PA_BUILD_SHARED"] = self.options.shared
         tc.variables["PA_USE_JACK"] = self.options.get_safe("with_jack", False)
-        if self.options.get_safe("with_alsa", False): # with_alsa=False just makes portaudio use the Linux distro's alsa
-            # as a workaround to the fact that conancenter's alsa does not work,
-            # at least some of the time (no devices detected by portaudio)
-            tc.variables["PA_USE_ALSA"] = True
+        tc.variables["PA_USE_ALSA"] = self.options.get_safe("with_alsa", False)
         tc.generate()
 
     def layout(self):
@@ -82,11 +79,8 @@ class PortaudioConan(ConanFile):
         cmake = CMake(self)
         cmake.install()
         rmdir(self, os.path.join(self.package_folder, "share"))
-        # rmdir(self, os.path.join(self.package_folder, "lib", "cmake"))
-        # rmdir(self, os.path.join(self.package_folder, "lib", "pkgconfig"))
 
     def package_info(self):
-        # TODO: Add components with > 19.7, because the next release will most likely have major changes for their CMake setup
 
         if self.settings.os == "Macos":
             self.cpp_info.frameworks.extend(["CoreAudio", "AudioToolbox", "AudioUnit", "CoreServices", "Carbon"])
