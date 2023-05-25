@@ -93,7 +93,7 @@ class PortaudioConan(ConanFile):
             if self.options.with_jack:
                 self.cpp_info.system_libs.append("jack")
 
-        if self.settings.os == "Windows":
+        if self.settings.os == "Windows" and self.settings.compiler == "msvc":
             if self.options.shared:
                 self.cpp_info.libs = ["portaudio_x64"]
             else:
