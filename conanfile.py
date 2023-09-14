@@ -37,9 +37,10 @@ class PortaudioConan(ConanFile):
         del self.settings.compiler.cppstd
         if self.settings.os == "Windows":
             self.options.rm_safe("fPIC")
+        if self.settings.os != "Linux" and self.settings.os != "FreeBSD":
+            self.options.rm_safe("with_jack")
         if self.settings.os != "Linux":
             self.options.rm_safe("with_alsa")
-            self.options.rm_safe("with_jack")
 
     def system_requirements(self):
         if self.settings.os == "Linux":
@@ -52,6 +53,10 @@ class PortaudioConan(ConanFile):
             if self.settings.arch == "x86":
                 package_manager.Yum(self).install(["glibmm24.i686"])
                 package_manager.Yum(self).install(["glibc-devel.i686"])
+
+        if self.settings.os == "FreeBSD":
+            if self.options.with_jack:
+                package_manager.Pkg(self).install(["jackit"])
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
@@ -90,8 +95,9 @@ class PortaudioConan(ConanFile):
 
         if self.settings.os == "Linux" and not self.options.shared:
             self.cpp_info.system_libs.extend(["m", "pthread", "asound"])
-            if self.options.with_jack:
-                self.cpp_info.system_libs.append("jack")
+
+        if (self.settings.os == "Linux" or self.settings.os == "FreeBSD") and not self.options.shared and self.options.with_jack:
+            self.cpp_info.system_libs.append("jack")
 
         if self.settings.os == "Windows" and self.settings.compiler == "msvc":
             if self.options.shared:
