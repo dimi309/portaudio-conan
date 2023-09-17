@@ -48,7 +48,7 @@ class PortaudioConan(ConanFile):
                 package_manager.Apt(self).install(["libasound2-dev"])
                 package_manager.Yum(self).install(["alsa-lib-devel"])
             if self.options.with_jack:
-                package_manager.Apt(self).install(["libjack-dev"])
+                package_manager.Apt(self).install(["libjack-jackd2-dev"])
                 package_manager.Yum(self).install(["jack-audio-connection-kit-devel"])
             if self.settings.arch == "x86":
                 package_manager.Yum(self).install(["glibmm24.i686"])
