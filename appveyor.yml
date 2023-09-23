@@ -35,7 +35,7 @@ for:
   - conan profile detect
   
   test_script:
-  - conan create . --version=19.7.0 --build=missing
+  - conan create . -s compiler.cppstd=gnu17 --version=19.7.0 --build=missing
  
 -
   matrix:
